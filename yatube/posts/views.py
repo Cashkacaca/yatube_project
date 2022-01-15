@@ -1,6 +1,8 @@
 # from django.http import HttpResponse
 # Импортируем загрузчик.
 from django.shortcuts import render
+# Импортируем модель, чтобы обратиться к ней
+from .models import Post
 
 
 def index(request):
@@ -8,10 +10,15 @@ def index(request):
     template = 'posts/index.html'
     # Строку, которую надо вывести на страницу, тоже сохраним в переменную
     title = 'Это главная страница проекта Yatube'
+    # в переменную posts будет сохранена выборка из 10 объектов модели Post,
+    # отсортированных по полю pub_date по убыванию
+    # (от больших значений к меньшим)
+    posts = Post.objects.order_by('-pub_date')[:10]
     # Словарь с данными принято называть context
     context = {
         # В словарь можно передать переменную
         'title': title,
+        'posts': posts,
         # А можно сразу записать значение в словарь. Но обычно так не делают
         # 'text': 'Главная страница',
     }
