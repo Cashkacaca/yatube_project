@@ -32,8 +32,10 @@ def index(request):
 def group_posts(request, slug):
     template_group_list = 'posts/group_list.html'
     title = 'Здесь будет информация о группах проекта Yatube'
+    # posts = Post.objects.order_by('-pub_date')[:10]
     context = {
         'title': title,
+        # 'posts': posts,
     }
     return render(request, template_group_list, context)
 
