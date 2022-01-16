@@ -1,8 +1,8 @@
 # from django.http import HttpResponse
 # Импортируем загрузчик.
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 # Импортируем модель, чтобы обратиться к ней
-from .models import Post
+from .models import Post, Group
 
 
 def index(request):
@@ -30,12 +30,23 @@ def index(request):
 
 # Добавил страницу posts/group_list.html
 def group_posts(request, slug):
+    # Функция get_object_or_404 получает по заданным критериям объект
+    # из базы данных или возвращает сообщение об ошибке, если объект не найден.
+    # В нашем случае в переменную group будут переданы объекты модели Group,
+    # поле slug у которых соответствует значению slug в запросе
+    group = get_object_or_404(Group, slug=slug)
+
     template_group_list = 'posts/group_list.html'
+
     title = 'Здесь будет информация о группах проекта Yatube'
-    # posts = Post.objects.order_by('-pub_date')[:10]
+
+    # Метод .filter позволяет ограничить поиск по критериям.
+    # Это аналог добавления
+    # условия WHERE group_id = {group_id}
+    posts = Post.objects.filter(group=group).order_by('-pub_date')[:10]
     context = {
         'title': title,
-        # 'posts': posts,
+        'posts': posts,
     }
     return render(request, template_group_list, context)
 
