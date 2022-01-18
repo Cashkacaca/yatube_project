@@ -16,7 +16,10 @@
             </li>
           </ul>      
           <p>{{ post.text }}</p>
-          <a href="{% url 'posts:all_group_records' post.group.slug %}">все записи группы {{ post.group }}</a>
+		  {% if post.group is not null %}
+          <a href="{% url 'posts:all_group_records' post.group.slug %}">
+		    все записи группы {{ post.group }} </a>
+		  {% endif %}
 		  {% if not forloop.last %}<hr>{% endif %}
         {% endfor %}
 		</article>
