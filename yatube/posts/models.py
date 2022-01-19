@@ -9,7 +9,8 @@ User = get_user_model()
 class Group(models.Model):
     # Тип: CharField (строка с ограничением длины)
     title = models.CharField(max_length=200)
-    slug = models.SlugField()
+    # типы поля (unique=True) - уникальный адрес группы
+    slug = models.SlugField(unique=True)
     description = models.TextField()
 
     # метод __str__,
