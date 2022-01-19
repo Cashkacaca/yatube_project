@@ -38,11 +38,9 @@ def group_posts(request, slug):
 
     template_group_list = 'posts/group_list.html'
 
-    title = 'Записи сообщества Лев Толстой – зеркало русской революции.'
+    title = f'Записи сообщества { group.title }.'
 
     # Метод .filter позволяет ограничить поиск по критериям.
-    # Это аналог добавления
-    # условия WHERE group_id = {group_id}
     posts = Post.objects.filter(group=group).order_by('-pub_date')[:10]
     context = {
         'title': title,

@@ -7,5 +7,5 @@ urlpatterns = [
     # Главная страница
     path('', views.index, name='master_page'),
     # # Страницы сообществ
-    path('group/<slug:slug>/', views.group_posts, name='all_group_records',),
+    path('group/<slug:slug>/', views.group_posts, name='group_list',),
 ]
